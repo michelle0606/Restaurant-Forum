@@ -2,6 +2,7 @@ const express = require('express')
 const handlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
+const port = process.env.PORT || 3000
 const app = express()
 const db = require('./models')
 
@@ -27,7 +28,7 @@ app.use((req, res, next) => {
   next()
 })
 
-app.listen(3000, () => {
+app.listen(port, () => {
   db.sequelize.sync()
   console.log(`Example app listening on port 3000!`)
 })
