@@ -41,6 +41,22 @@ const userController = {
     req.flash('success_messages', '登出成功！')
     req.logout()
     res.redirect('/signin')
+  },
+  editUser: (req, res) => {
+    return User.findAll().then(user => {
+      res.render('admin/editUser', { user: user })
+    })
+  },
+  putUser: (req, res) => {
+    return User.findByPk(req.params.id)
+      .then(user => {
+        if (user.isAdmin) return user.update({ isAdmin: false })
+        else return user.update({ isAdmin: true })
+      })
+      .then(() => {
+        req.flash('success_messages', 'user was successfully to update')
+        res.redirect('/admin/users')
+      })
   }
 }
 
