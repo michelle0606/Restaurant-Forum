@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.engine('handlebars', handlebars())
 app.set('view engine', 'handlebars')
 app.use(methodOverride('_method'))
-
+app.use('/upload', express.static(__dirname + '/upload'))
 app.use(passport.initialize())
 app.use(passport.session())
 
