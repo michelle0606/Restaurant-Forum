@@ -1,4 +1,5 @@
 const express = require('express')
+const handlebars = require('express-handlebars')
 const bodyParser = require('body-parser')
 const app = express()
 const db = require('./models')
@@ -11,7 +12,8 @@ app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
 app.use(flash())
 
 app.use(bodyParser.urlencoded({ extended: true }))
-app.set('view engine', 'pug')
+app.engine('handlebars', handlebars())
+app.set('view engine', 'handlebars')
 
 app.use(passport.initialize())
 app.use(passport.session())
@@ -19,6 +21,7 @@ app.use(passport.session())
 app.use((req, res, next) => {
   res.locals.success_messages = req.flash('success_messages')
   res.locals.error_messages = req.flash('error_messages')
+  res.locals.user = req.user
   next()
 })
 
