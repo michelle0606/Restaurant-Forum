@@ -14,7 +14,13 @@ app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
 app.use(flash())
 
 app.use(bodyParser.urlencoded({ extended: true }))
-app.engine('handlebars', handlebars())
+app.engine(
+  'handlebars',
+  handlebars({
+    defaultLayout: 'main',
+    helpers: require('./config/handlebars-helpers')
+  })
+)
 app.set('view engine', 'handlebars')
 app.use(methodOverride('_method'))
 app.use('/upload', express.static(__dirname + '/upload'))
