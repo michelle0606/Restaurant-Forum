@@ -55,7 +55,6 @@ const userController = {
   },
 
   putUser: (req, res) => {
-    console.log('HERE', req)
     if (!req.body.name) {
       req.flash('error_messages', "name didn't exist")
       return res.redirect('back')
