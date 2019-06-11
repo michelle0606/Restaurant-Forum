@@ -35,8 +35,8 @@ module.exports = (app, passport) => {
     res.redirect('/admin/restaurants')
   )
 
-  app.get('/admin/users', authenticatedAdmin, userController.editUser)
-  app.put('/admin/users/:id', authenticatedAdmin, userController.putUser)
+  app.get('/admin/users', authenticatedAdmin, adminController.editUser)
+  app.put('/admin/users/:id', authenticatedAdmin, adminController.putUser)
 
   app.get(
     '/admin/restaurants',
@@ -115,4 +115,13 @@ module.exports = (app, passport) => {
     userController.signIn
   )
   app.get('/logout', userController.logout)
+
+  app.get('/users/:id', authenticated, userController.getUser)
+  app.get('/users/:id/edit', authenticated, userController.editUser)
+  app.put(
+    '/users/:id',
+    authenticated,
+    upload.single('image'),
+    userController.putUser
+  )
 }

@@ -1,6 +1,8 @@
 const db = require('../models')
 const Restaurant = db.Restaurant
 const Category = db.Category
+const User = db.User
+
 const fs = require('fs')
 const imgur = require('imgur-node-api')
 const IMGUR_CLIENT_ID = '62019706c9916ea'
@@ -135,6 +137,22 @@ const adminController = {
         res.redirect('/admin/restaurants')
       })
     })
+  },
+  editUser: (req, res) => {
+    return User.findAll().then(user => {
+      res.render('admin/editUser', { user: user })
+    })
+  },
+  putUser: (req, res) => {
+    return User.findByPk(req.params.id)
+      .then(user => {
+        const roleToUpdate = !user.isAdmin
+        return user.update({ isAdmin: roleToUpdate })
+      })
+      .then(() => {
+        req.flash('success_messages', 'user was successfully to update')
+        res.redirect('/admin/users')
+      })
   }
 }
 

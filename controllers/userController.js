@@ -2,6 +2,9 @@ const bcrypt = require('bcrypt-nodejs')
 const db = require('../models')
 const User = db.User
 
+const imgur = require('imgur-node-api')
+const IMGUR_CLIENT_ID = '62019706c9916ea'
+
 const userController = {
   signUpPage: (req, res) => {
     return res.render('signup')
@@ -42,21 +45,54 @@ const userController = {
     req.logout()
     res.redirect('/signin')
   },
-  editUser: (req, res) => {
-    return User.findAll().then(user => {
-      res.render('admin/editUser', { user: user })
-    })
+
+  getUser: (req, res) => {
+    return res.render('profile')
   },
+
+  editUser: (req, res) => {
+    return res.render('editProfile')
+  },
+
   putUser: (req, res) => {
-    return User.findByPk(req.params.id)
-      .then(user => {
-        const roleToUpdate = !user.isAdmin
-        return user.update({ isAdmin: roleToUpdate })
+    console.log('HERE', req)
+    if (!req.body.name) {
+      req.flash('error_messages', "name didn't exist")
+      return res.redirect('back')
+    }
+    const { file } = req
+    if (file) {
+      imgur.setClientID(IMGUR_CLIENT_ID)
+      imgur.upload(file.path, (err, img) => {
+        if (err) console.log('Error: ', err)
+        return User.findByPk(req.params.id).then(user => {
+          user
+            .update({
+              name: req.body.name,
+              image: file ? img.data.link : user.image
+            })
+            .then(() => {
+              req.flash(
+                'success_messages',
+                'Profile was successfully to update'
+              )
+              res.redirect(`/users/${req.params.id}`)
+            })
+        })
       })
-      .then(() => {
-        req.flash('success_messages', 'user was successfully to update')
-        res.redirect('/admin/users')
+    } else {
+      return User.findByPk(req.params.id).then(user => {
+        user
+          .update({
+            name: req.body.name,
+            image: user.image
+          })
+          .then(() => {
+            req.flash('success_messages', 'Profile was successfully to update')
+            res.redirect(`/users/${req.params.id}`)
+          })
       })
+    }
   }
 }
 
