@@ -12,6 +12,7 @@ const passport = require('./config/passport')
 
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
 app.use(flash())
+app.use(express.static('public'))
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.engine(
