@@ -50,8 +50,8 @@ const userController = {
   putUser: (req, res) => {
     return User.findByPk(req.params.id)
       .then(user => {
-        if (user.isAdmin) return user.update({ isAdmin: false })
-        else return user.update({ isAdmin: true })
+        const roleToUpdate = !user.isAdmin
+        return user.update({ isAdmin: roleToUpdate })
       })
       .then(() => {
         req.flash('success_messages', 'user was successfully to update')
