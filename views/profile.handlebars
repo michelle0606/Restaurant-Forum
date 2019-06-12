@@ -1,12 +1,25 @@
-<div class="row" style="background-color: #fff;
+<div style="display: flex; background-color: #fff;
     border: 1px solid #E7E7E7;
-    border-radius: 5px;">
+    border-radius: 5px; margin-bottom: 20px;">
   <div class="card-body col-3">
     <img src="{{user.image}}" style="width: inherit;" alt="{{user.name}}">
   </div>
   <div class="card-body col-9">
     <h5 class="card-title">{{user.name}}</h5>
     <p class="card-text">{{user.email}}</p>
-    <a href="/users/{{user.id}}/edit" class="btn btn-primary">edit</a>
+    <p class="card-text"><strong>{{count}}</strong> 已評論餐廳</p>
+    <a href="/users/{{user.id}}/edit" class="btn btn-primary" style="position: absolute; bottom: 1.25rem;">edit</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <strong>{{count}}</strong> 已評論餐廳
+  </div>
+  <div class="card-body">
+    {{#each comments}}
+    <a href="/restaurants/{{this.Restaurant.dataValues.id}}" style="margin: 10px">
+      <img style="width: 70px;" src="{{this.Restaurant.dataValues.image}}" alt="">
+    </a>
+    {{/each}}
   </div>
 </div>
