@@ -60,6 +60,12 @@ const restController = {
         restaurant: restaurant
       })
     })
+  },
+
+  getAllRest: (req, res) => {
+    return Restaurant.findAll().then(results => {
+      return res.send(results)
+    })
   }
 }
 module.exports = restController

@@ -9,6 +9,13 @@
   --title: 24px;
 }
 
+ul,
+ol {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
 p {
   font-family: var(--english);
 }
@@ -43,6 +50,27 @@ p.card-text > a {
   color: var(--color4) !important;
 }
 
+.search {
+  margin-right: 30px;
+}
+.search > input {
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid#fff;
+  padding-left: 32px;
+  color: #fff;
+}
+
+.search > i {
+  background-color: transparent;
+  border: 0.5px solid#fff;
+  padding: 5px;
+  margin-left: -2px;
+  color: #9f8189;
+  position: absolute;
+  background: #fff;
+}
+
 .logout {
   background: transparent;
   color: #fce6d9;
@@ -54,19 +82,10 @@ p.card-text > a {
 }
 
 .scale:hover {
-  animation-name: scale;
-  animation-fill-mode: forwards;
-  animation-duration: 1s;
+  transform: scale(1.05);
+  transition: transform 0.8s;
+  width: 100%;
   height: auto;
-}
-
-@keyframes scale {
-  from {
-    width: 100%;
-  }
-  to {
-    width: 110%;
-  }
 }
 
 .restaurants-top {
@@ -119,4 +138,45 @@ p.card-text > a {
 }
 .other-option > p > a {
   color: var(--color4);
+}
+
+.search {
+  position: relative;
+}
+
+.search-field::placeholder {
+  color: #fff;
+  opacity: 1;
+}
+
+.match {
+  background: #dd9ba5;
+}
+
+.suggestions {
+  position: absolute;
+  right: 0px;
+  width: 174px;
+  height: fit-content;
+  max-height: 200px;
+  overflow: scroll;
+  background: #fff;
+  border: solid 1px var(--color4);
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.0975);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.0975);
+}
+
+.suggestions > li {
+  letter-spacing: 1.5px;
+  border-bottom: solid 1px #efefef;
+  padding: 5px 10px;
+}
+
+.suggestions > li:hover {
+  background-color: #fafafa;
+}
+
+.suggestions > li > a {
+  color: black;
 }

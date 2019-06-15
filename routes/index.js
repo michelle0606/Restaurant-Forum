@@ -124,4 +124,6 @@ module.exports = (app, passport) => {
     upload.single('image'),
     userController.putUser
   )
+
+  app.get('/api/restaurants', authenticated, restController.getAllRest)
 }

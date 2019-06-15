@@ -10,22 +10,30 @@
     crossorigin="anonymous">
   <link rel="stylesheet" href="/stylesheets/style.css">
   <link rel="stylesheet" href="/stylesheets/profile.css">
+  <script src="https://kit.fontawesome.com/2e90554d29.js"></script>
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg fixed-top">
-    <a class="navbar-brand" href="/">餐廳評論網</a>
+    <a class="navbar-brand ml-5" href="/">RESTAURANT FORUM</a>
     <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto">
       </ul>
-      <div>
+      {{#if currentUser}}
+      <div class="search">
+        <i class="fas fa-search"></i>
+        <input type="text" class="search-field" placeholder="Search Restaurant">
+        <ul class="suggestions"></ul>
+      </div>
+      {{/if}}
+      <div class="align-items-center d-flex">
         {{#if currentUser.isAdmin}}
-        <a href="/admin" style="color: white;margin-right: 10px;">Admin 後台</a>
+        <a href="/admin" style="color: white;margin-right: 10px;">Admin</a>
         {{/if}}
         {{#if currentUser}}
-        <span style="color: white;margin-right: 10px;">Hi, {{currentUser.email}}</span>
+        <span style="color: white;margin-right: 10px;">Hi, {{currentUser.name}}</span>
         <a href="/users/{{currentUser.id}}" style="color: white;margin-right: 10px;">Profile</a>
-        <a href="/logout"><button class="btn my-2 my-sm-0 logout">LogOut</button></a>
+        <a href="/logout" class="mr-5"><button class="btn my-2 my-sm-0 logout">LogOut</button></a>
         {{/if}}
       </div>
     </div>
@@ -49,12 +57,13 @@
       </div>
     </div>
   </main>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <script src="/javascripts/search.js"></script>
 </body>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-  crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-  crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-  crossorigin="anonymous"></script>
 
 </html>
