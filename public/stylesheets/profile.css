@@ -61,7 +61,8 @@
   text-align: center;
   left: 0px;
   width: 100%;
-  line-height: 7;
+  height: 100%;
+  line-height: 8;
   color: #444e5d;
   background: rgba(255, 255, 255, 0.6);
 }
@@ -92,7 +93,7 @@
   z-index: 1;
   left: 0px;
   font-weight: 200;
-  line-height: 7;
+  line-height: 8;
 }
 
 .circle-spacer {

@@ -31,6 +31,10 @@ a:hover {
   color: var(--color3);
 }
 
+.nav-link:hover {
+  color: var(--color2);
+}
+
 .nav-link.active {
   background-color: var(--color3) !important;
 }
@@ -82,4 +86,37 @@ p.card-text > a {
 }
 .restaurants-bottom > p:nth-child(3) {
   margin-top: 10px;
+}
+
+.page-item.active .page-link {
+  background-color: var(--color4);
+  color: var(--color1);
+  border-color: var(--color4);
+}
+
+.page-link {
+  background-color: var(--color1);
+  color: var(--color4);
+  border-color: var(--color1);
+}
+
+.signup,
+.signin {
+  background-color: var(--color4);
+  color: #fff;
+}
+
+.other-option {
+  border: 2px solid var(--color4);
+  color: var(--color4);
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.other-option > p {
+  padding: 8px 16px;
+  margin: 0px;
+}
+.other-option > p > a {
+  color: var(--color4);
 }
