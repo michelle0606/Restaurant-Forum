@@ -12,8 +12,10 @@
   {{#each restaurants}}
   <div class="col-md-4">
     <div class="card mb-4 shadow-sm">
-      <img class="card-img-top" src="{{this.image}}" alt="Card image cap" width="286px" height="180px">
-      <div class="card-body">
+      <div class="card-top restaurants-top">
+        <img class="scale" src="{{this.image}}" alt="Card image cap" style="width: inherit;">
+      </div>
+      <div class="card-body restaurants-bottom">
         <p class="card-text">
           <a href="/restaurants/{{this.id}}">
             {{this.name}}

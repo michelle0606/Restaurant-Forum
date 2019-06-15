@@ -1,0 +1,85 @@
+@import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+@import url(https://fonts.googleapis.com/css?family=Quicksand:700&display=swap);
+:root {
+  --color1: #fce6d9;
+  --color2: #f7c9d4;
+  --color3: #dd9ba5;
+  --color4: #9f8189;
+  --english: 'Quicksand', sans-serif;
+  --title: 24px;
+}
+
+p {
+  font-family: var(--english);
+}
+a:hover {
+  text-decoration: none;
+}
+
+.navbar {
+  background-color: var(--color4);
+}
+
+.navbar-brand {
+  color: #fff;
+}
+.navbar-brand:hover {
+  color: var(--color1);
+}
+
+.nav-link {
+  color: var(--color3);
+}
+
+.nav-link.active {
+  background-color: var(--color3) !important;
+}
+
+p.card-text > a {
+  color: var(--color4) !important;
+}
+
+.logout {
+  background: transparent;
+  color: #fce6d9;
+  border: 2px solid #fce6d9;
+}
+.logout:hover {
+  background-color: var(--color1);
+  color: #9f8189;
+}
+
+.scale:hover {
+  animation-name: scale;
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
+  height: auto;
+}
+
+@keyframes scale {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 110%;
+  }
+}
+
+.restaurants-top {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  width: 100%;
+  height: 180px;
+}
+
+.restaurants-bottom {
+  height: 152px;
+  padding: 10px 15px;
+}
+.restaurants-bottom > p:nth-child(1) {
+  margin: 0px;
+  font-size: var(--title);
+}
+.restaurants-bottom > p:nth-child(3) {
+  margin-top: 10px;
+}

@@ -1,24 +1,35 @@
-<div style="display: flex; background-color: #fff;
-    border: 1px solid #E7E7E7;
-    border-radius: 5px; margin-bottom: 20px;">
-  <div class="card-body col-3">
-    <img src="{{currentUser.image}}" style="width: inherit;" alt="{{currentUser.name}}">
+<div class="profile-top">
+  <div class="card-body col-4 profile-image" style="background-image: url({{user.image}})">
   </div>
-  <div class="card-body col-9">
-    <h5 class="card-title">{{currentUser.name}}</h5>
-    <p class="card-text">{{currentUser.email}}</p>
-    <p class="card-text"><strong>{{count}}</strong> 已評論餐廳</p>
-    <a href="/users/{{currentUser.id}}/edit" class="btn btn-primary" style="position: absolute; bottom: 1.25rem;">edit</a>
+  <div class="card-body col-4">
+    <h5 class="card-title">{{user.name}}</h5>
+    <p class="card-text">{{user.email}}</p>
+    <p class="card-text">共有 <strong>{{count}}</strong> 則評論</p>
+    <a href="/users/{{user.id}}/edit" class="btn btn-primary profile-edit">Edit</a>
+  </div>
+  <div class="card-body col-4 profile-comments">
+    {{#each comments}}
+    <div class="profile-each-comment">
+      <a href="/restaurants/{{this.Restaurant.id}}">
+        <span>{{this.Restaurant.name}}</span>
+        <span>{{this.text}}</span>
+        <footer class="blockquote-footer">{{moment this.createdAt}}</footer>
+      </a>
+    </div>
+
+    {{/each}}
   </div>
 </div>
 <div class="card">
   <div class="card-header">
-    <strong>{{count}}</strong> 已評論餐廳
+    <strong>{{num}}</strong> 間已評論餐廳
   </div>
   <div class="card-body">
-    {{#each comments}}
-    <a href="/restaurants/{{this.Restaurant.dataValues.id}}" style="margin: 10px">
-      <img style="width: 70px;" src="{{this.Restaurant.dataValues.image}}" alt="">
+    {{#each rest}}
+    <a href="/restaurants/{{this.id}}" class="profile-rest-image">
+      <div class="circle-spacer"></div>
+      <img src="{{this.image}}" alt="">
+      <span>{{this.name}}</span>
     </a>
     {{/each}}
   </div>

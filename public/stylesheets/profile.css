@@ -1,0 +1,102 @@
+.profile-top {
+  display: flex;
+  background-color: #fff;
+  border: 1px solid #e7e7e7;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  height: 300px;
+}
+
+.profile-edit {
+  position: absolute;
+  bottom: 1.25rem;
+}
+
+.profile-comments {
+  padding: 10px;
+  overflow: scroll;
+}
+
+.profile-each-comment > a > span:nth-child(1) {
+  color: black;
+  padding-right: 5px;
+}
+.profile-each-comment > a > span:nth-child(2) {
+  color: #8b8a89;
+}
+
+.profile-each-comment {
+  border: 3px solid var(--color2);
+  border-radius: 20px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.profile-each-comment:hover {
+  background: var(--color2);
+  color: #fff;
+  -webkit-transition: all 0.4s linear;
+  -moz-transition: all 0.4s linear;
+  -ms-transition: all 0.4s linear;
+  -o-transition: all 0.4s linear;
+  transition: all 0.4s linear;
+}
+
+.profile-image {
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.profile-rest-image {
+  width: 12.5%;
+  margin: 0px 10px;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+}
+
+.profile-rest-image > span {
+  position: absolute;
+  top: 0px;
+  text-align: center;
+  left: 0px;
+  width: 100%;
+  line-height: 7;
+  color: #444e5d;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.profile-rest-image > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  float: none;
+  border-radius: 50%;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+
+.profile-rest-image:hover::after {
+  content: 'Watch more';
+  background-color: #000;
+  border-radius: 50%;
+  color: #fff;
+  opacity: 0.7;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  position: absolute;
+  z-index: 1;
+  left: 0px;
+  font-weight: 200;
+  line-height: 7;
+}
+
+.circle-spacer {
+  position: relative;
+  padding-top: 100%;
+  float: none;
+}

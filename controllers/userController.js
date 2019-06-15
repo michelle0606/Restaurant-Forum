@@ -54,13 +54,32 @@ const userController = {
         include: Restaurant,
         where: { UserId: user.id }
       }).then(result => {
-        const data = result.rows.map(c => ({
-          ...c.dataValues
+        let data = result.rows.map(c => ({
+          ...c.dataValues,
+          text: c.dataValues.text.substring(0, 20)
         }))
-        return res.render('profile', {
-          comments: data,
-          count: result.count
+        // 過濾重複的餐廳
+        let restaurants = data.map(c => {
+          return c.Restaurant.id
         })
+        restaurants = Array.from(new Set(restaurants))
+        const rest_been_commented = restaurants.length
+        Restaurant.findAll({ where: { id: restaurants } })
+          .then(r => {
+            is_not_repeat = r.map(r => ({
+              ...r.dataValues,
+              name: r.dataValues.name.substring(0, 5) + '..'
+            }))
+          })
+          .then(() => {
+            res.render('profile', {
+              num: rest_been_commented,
+              user: user,
+              rest: is_not_repeat,
+              comments: data,
+              count: result.count
+            })
+          })
       })
     })
   },
