@@ -10,11 +10,17 @@ fetch(endpoint)
     restaurants.push(...data)
   })
 
+function findMatches(wordToMatch, restaurants) {
+  return restaurants.filter(r => {
+    const regex = new RegExp(wordToMatch, 'gi')
+    return r.name.match(regex)
+  })
+}
+
 function displayMatches() {
   const matchArray = findMatches(this.value, restaurants)
   suggestions.innerHTML = matchArray
     .map(r => {
-      console.log(r)
       const regex = new RegExp(this.value, 'gi')
       const restName = r.name.replace(
         regex,
@@ -27,13 +33,6 @@ function displayMatches() {
       `
     })
     .join('')
-}
-
-function findMatches(wordToMatch, restaurants) {
-  return restaurants.filter(r => {
-    const regex = new RegExp(wordToMatch, 'gi')
-    return r.name.match(regex)
-  })
 }
 
 searchInput.addEventListener('change', displayMatches)
