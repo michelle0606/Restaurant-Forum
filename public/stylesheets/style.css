@@ -201,15 +201,51 @@ p.card-text > a {
   border-radius: 0px 0px 0px 0.25rem;
 }
 
-.card-footer.footer-option {
-  padding: 0px;
-}
-
-.fa-heart {
+.fa-heart,
+.fa-thumbs-up,
+.fa-thumbs-down {
   padding-right: 5px;
   font-size: 14px;
 }
 
-.footer-option {
+.unlike,
+.like {
+  width: -webkit-fill-available;
+  border: none;
+  padding: 7px 0px;
+  border-radius: 0px 0px 0.25rem 0px;
+}
+
+.like {
+  background-color: var(--color5);
+  color: var(--color2);
+}
+
+.unlike {
+  background-color: var(--color6);
+  color: var(--color3);
+}
+
+.homepage-footer-option {
+  padding: 0px;
+  display: flex;
+}
+
+.homepage-footer-option > form {
   width: 50%;
+}
+
+.detail-page-option {
+  display: flex;
+  width: 400px;
+}
+
+.detail-page-option > a,
+.detail-page-option > form {
+  flex: 3 3 33.3%;
+  margin-right: 10px;
+}
+
+.detail-page-option > form > button {
+  border-radius: 0.25rem;
 }
