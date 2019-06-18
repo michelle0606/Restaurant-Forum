@@ -235,6 +235,10 @@ p.card-text > a {
   width: 50%;
 }
 
+.homepage-footer-option > form > button {
+  cursor: pointer;
+}
+
 .detail-page-option {
   display: flex;
   width: 400px;
@@ -248,4 +252,5 @@ p.card-text > a {
 
 .detail-page-option > form > button {
   border-radius: 0.25rem;
+  cursor: pointer;
 }
