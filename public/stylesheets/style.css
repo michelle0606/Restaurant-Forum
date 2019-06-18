@@ -5,6 +5,8 @@
   --color2: #f7c9d4;
   --color3: #dd9ba5;
   --color4: #9f8189;
+  --color5: #c06c84;
+  --color6: #6d5c7c;
   --english: 'Quicksand', sans-serif;
   --title: 24px;
 }
@@ -179,4 +181,35 @@ p.card-text > a {
 
 .suggestions > li > a {
   color: black;
+}
+
+.save {
+  background-color: var(--color3);
+  color: #fff;
+}
+
+.remove {
+  background-color: var(--color4);
+  color: var(--color1);
+}
+
+.save,
+.remove {
+  width: -webkit-fill-available;
+  border: none;
+  padding: 7px 0px;
+  border-radius: 0px 0px 0px 0.25rem;
+}
+
+.card-footer.footer-option {
+  padding: 0px;
+}
+
+.fa-heart {
+  padding-right: 5px;
+  font-size: 14px;
+}
+
+.footer-option {
+  width: 50%;
 }

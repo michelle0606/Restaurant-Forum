@@ -17,6 +17,13 @@
     <p>{{restaurant.description}}</p>
     <div>
       <a href="/dashboard/{{restaurant.id}}" class="btn btn-primary">DashBoard</a>
+      {{#if isFavorited }}
+      <form action="/favorite/{{restaurant.id}}?_method=DELETE" method="POST" style="display: contents;"><button type="submit"
+          class="remove"><i class="fas fa-heart"></i>Remove</button></form>
+      {{else}}
+      <form action="/favorite/{{restaurant.id}}" method="POST" style="display: contents;"><button type="submit" class="save"><i
+            class="far fa-heart"></i>Save</button></form>
+      {{/if}}
     </div>
   </div>
   <hr>
