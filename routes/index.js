@@ -126,5 +126,7 @@ module.exports = (app, passport) => {
     userController.putUser
   )
 
+  app.get('/dashboard/:id', authenticated, restController.getDashboard)
+
   app.get('/api/restaurants', authenticated, restController.getAllRest)
 }
