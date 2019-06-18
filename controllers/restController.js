@@ -102,14 +102,15 @@ const restController = {
 
   getDashboard: (req, res) => {
     return Restaurant.findByPk(req.params.id, {
-      include: [Category]
-    }).then(data => {
+      include: [Category, { model: User, as: 'FavoritedUsers' }]
+    }).then(restaurant => {
       Comment.findAndCountAll({
         where: { RestaurantId: req.params.id }
       }).then(results => {
         res.render('dashboard', {
-          restaurant: data,
-          count: results.count
+          restaurant: restaurant,
+          commentCount: results.count,
+          saveCount: restaurant.FavoritedUsers.length
         })
       })
     })
