@@ -128,5 +128,13 @@ module.exports = (app, passport) => {
 
   app.get('/dashboard/:id', authenticated, restController.getDashboard)
 
+  app.post('/favorite/:restaurantId', authenticated, userController.addFavorite)
+
+  app.delete(
+    '/favorite/:restaurantId',
+    authenticated,
+    userController.removeFavorite
+  )
+
   app.get('/api/restaurants', authenticated, restController.getAllRest)
 }
