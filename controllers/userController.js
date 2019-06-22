@@ -146,6 +146,7 @@ const userController = {
       })
     }
   },
+
   addFavorite: (req, res) => {
     return Favorite.create({
       UserId: req.user.id,

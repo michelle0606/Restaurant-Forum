@@ -1,7 +1,110 @@
-<div class="row">
-  <div class="col-md-12">
+<div class="rest_detail_page">
+  <div class="left-col">
+    <section class="main-info">
+      <div>
+        <img src="{{restaurant.image}}" alt="">
+      </div>
+      <div>
+        <h3>{{restaurant.name}}</h3>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star-half-alt"></i>
+          <i class="far fa-star"></i>
+        </div>
+        <a href="/restaurants?categoryId={{restaurant.CategoryId}}" class="category"><i class="fas fa-tag"></i>
+          {{restaurant.Category.name}}<a>
+            <div class="detail-page-option">
+              <div>
+                <small>有 <strong>11</strong> 個人收藏</small>
+                {{#if isFavorited }}
+                <form action="/favorite/{{restaurant.id}}?_method=DELETE" method="POST"><button type="submit" class="remove"><i
+                      class="fas fa-heart"></i>Remove</button></form>
+                {{else}}
+                <form action="/favorite/{{restaurant.id}}" method="POST"><button type="submit" class="save"><i class="far fa-heart"></i>Save</button></form>
+                {{/if}}
+              </div>
+
+              <div>
+                <small>有 <strong>11</strong> 個人喜歡</small>
+                {{#if isLiked }}
+                <form action="/like/{{restaurant.id}}?_method=DELETE" method="POST"><button type="submit" class="unlike"><i
+                      class="far fa-thumbs-down"></i>Unlike</button></form>
+                {{else}}
+                <form action="/like/{{restaurant.id}}" method="POST"><button type="submit" class="like"><i class="far fa-thumbs-up"></i>Like</button></form>
+                {{/if}}
+              </div>
+
+
+            </div>
+      </div>
+    </section>
+
+    <section class="more-info">
+      <div class="description">
+        {{restaurant.description}}
+      </div>
+      <div class="contact">
+        <ul class="list-unstyled">
+          <li><strong>Opening Hour:</strong> {{restaurant.opening_hours}}</li>
+          <li><strong>Tel:</strong> {{restaurant.tel}}</li>
+          <li><strong>Address:</strong> {{restaurant.address}}</li>
+        </ul>
+      </div>
+
+    </section>
+
+    <section class="comments">
+      <h3>所有評論：</h3>
+      {{#each restaurant.Comments}}
+      {{#if ../currentUser.isAdmin}}
+      <form action="/comments/{{this.id}}?_method=DELETE" method="POST" style="float: right;">
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+      {{/if}}
+      <blockquote class="blockquote mb-0">
+        <h4><a href="/users/{{this.User.id}}">{{this.User.name}}</a></h4>
+        <p>{{this.text}}</p>
+        <footer class="blockquote-footer">{{moment this.createdAt}}</footer>
+      </blockquote>
+      <hr />
+      {{/each}}
+      <br />
+      <br />
+      <form action="/comments" method="POST">
+        <div class="form-group">
+          <label for="text">留下評論：</label>
+          <textarea class="form-control" id="text" name="text" rows="3"></textarea>
+        </div>
+        <input type="hidden" name="restaurantId" value="{{restaurant.id}}" />
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </section>
+  </div>
+
+
+  {{!-- suggestion --}}
+  <div class="right-col">
+    <ul>
+
+      <li>
+        <a href="">
+          <img src="" alt="">
+          <p></p>
+          <span></span>
+        </a>
+      </li>
+
+    </ul>
+  </div>
+</div>
+
+{{!-- <div class="row">
+  <div class="col-md-12 mb-3">
     <h1>{{restaurant.name}}</h1>
-    <p>[{{restaurant.Category.name}}]</p>
+    <a href="/restaurants?categoryId={{restaurant.CategoryId}}" class="category"><i class="fas fa-tag"></i>
+      {{restaurant.Category.name}}<a>
   </div>
   <div class="col-md-4">
     <img class="img-responsive center-block" src="{{restaurant.image}}" style="width: 250px;margin-bottom: 25px;">
@@ -59,4 +162,4 @@
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 <br />
-<a href="javascript:history.back()">回上一頁</a>
+<a href="javascript:history.back()">回上一頁</a> --}}

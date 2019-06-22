@@ -13,8 +13,10 @@
 }
 
 .profile-comments {
+  background-color: #fdf0e6;
   padding: 10px;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .profile-each-comment > a > span:nth-child(1) {

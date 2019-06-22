@@ -1,0 +1,83 @@
+.detail-page-option {
+  display: flex;
+  width: -webkit-fill-available;
+  position: absolute;
+  bottom: 0px;
+}
+
+.detail-page-option > div {
+  flex: 1 1;
+  margin-right: 10px;
+}
+
+.detail-page-option > div > form > button {
+  border-radius: 0.25rem;
+}
+
+.detail-page-option > form > button {
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.category {
+  padding: 5px;
+  border: 1px solid;
+  border-radius: 5px;
+  cursor: pointer;
+  width: fit-content;
+  margin-bottom: 30px;
+}
+
+.rest_detail_page {
+  display: grid;
+  grid-template-columns: 7fr 3fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: 'main suggestion';
+  grid-gap: 20px;
+}
+
+.left-col {
+  grid-area: main;
+}
+
+.right {
+  grid-area: suggestion;
+}
+
+.main-info {
+  display: flex;
+  margin: 20px 0px;
+}
+
+.main-info > :nth-child(1) {
+  width: 60%;
+}
+
+.main-info > :nth-child(1) > img {
+  width: -webkit-fill-available;
+}
+
+.main-info > :nth-child(2) {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  padding-left: 20px;
+  width: 40%;
+}
+
+.rating {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.more-info {
+  display: flex;
+}
+
+.description {
+  width: 50%;
+}
+
+.contact {
+  widows: 50%;
+}
