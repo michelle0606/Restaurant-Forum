@@ -52,38 +52,54 @@ const userController = {
   },
 
   getUser: (req, res) => {
-    User.findByPk(req.params.id).then(user => {
-      Comment.findAndCountAll({
-        include: Restaurant,
-        where: { UserId: user.id }
-      }).then(result => {
-        let data = result.rows.map(c => ({
-          ...c.dataValues,
-          text: c.dataValues.text.substring(0, 20)
-        }))
-        // 過濾重複的餐廳
-        let restaurants = data.map(c => {
-          return c.Restaurant.id
+    User.findByPk(req.params.id, {
+      include: [
+        {
+          model: Comment,
+          include: Restaurant
+        },
+        {
+          model: Restaurant,
+          as: 'FavoritedRestaurants'
+        },
+        {
+          model: User,
+          as: 'Followers'
+        },
+        {
+          model: User,
+          as: 'Followings'
+        }
+      ]
+    }).then(user => {
+      const followers = user.Followers
+      const followings = user.Followings
+      const favorites = user.FavoritedRestaurants
+      const comments = user.Comments
+      comments.map(c => ({
+        ...c.dataValues,
+        text: c.dataValues.text.substring(0, 20)
+      }))
+
+      let restaurants = comments.map(c => c.Restaurant.id)
+      restaurants = Array.from(new Set(restaurants))
+
+      Restaurant.findAll({ where: { id: restaurants } })
+        .then(restaurant => {
+          is_not_repeat = restaurant.map(restaurant => ({
+            ...restaurant.dataValues
+          }))
         })
-        restaurants = Array.from(new Set(restaurants))
-        const rest_been_commented = restaurants.length
-        Restaurant.findAll({ where: { id: restaurants } })
-          .then(r => {
-            is_not_repeat = r.map(r => ({
-              ...r.dataValues,
-              name: r.dataValues.name.substring(0, 5) + '..'
-            }))
+        .then(() => {
+          res.render('profile', {
+            user: user,
+            comments: comments,
+            followers: followers,
+            followings: followings,
+            favorites: favorites,
+            restaurants: is_not_repeat
           })
-          .then(() => {
-            res.render('profile', {
-              num: rest_been_commented,
-              user: user,
-              rest: is_not_repeat,
-              comments: data,
-              count: result.count
-            })
-          })
-      })
+        })
     })
   },
 

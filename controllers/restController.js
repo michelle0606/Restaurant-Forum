@@ -65,8 +65,7 @@ const restController = {
         { model: Comment, include: User }
       ]
     }).then(restaurant => {
-      restaurant.viewCounts += 1
-      restaurant.save()
+      restaurant.increment('viewCounts', { by: 1 })
       const isFavorited = restaurant.FavoritedUsers.some(
         d => d.id === Number(req.user.id)
       )
