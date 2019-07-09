@@ -17,7 +17,7 @@
           {{restaurant.Category.name}}<a>
             <div class="detail-page-option">
               <div>
-                <small>有 <strong>11</strong> 個人收藏</small>
+                <small>有 <strong>{{restaurant.FavoritedUsers.length}}</strong> 個人收藏</small>
                 {{#if isFavorited }}
                 <form action="/favorite/{{restaurant.id}}?_method=DELETE" method="POST"><button type="submit" class="remove"><i
                       class="fas fa-heart"></i>Remove</button></form>
@@ -27,7 +27,7 @@
               </div>
 
               <div>
-                <small>有 <strong>11</strong> 個人喜歡</small>
+                <small>有 <strong>{{restaurant.LikedUsers.length}}</strong> 個人喜歡</small>
                 {{#if isLiked }}
                 <form action="/like/{{restaurant.id}}?_method=DELETE" method="POST"><button type="submit" class="unlike"><i
                       class="far fa-thumbs-down"></i>Unlike</button></form>
@@ -47,39 +47,46 @@
       </div>
       <div class="contact">
         <ul class="list-unstyled">
-          <li><strong>Opening Hour:</strong> {{restaurant.opening_hours}}</li>
-          <li><strong>Tel:</strong> {{restaurant.tel}}</li>
-          <li><strong>Address:</strong> {{restaurant.address}}</li>
+          <li><i class="far fa-clock"></i> {{restaurant.opening_hours}}</li>
+          <li><i class="fas fa-phone"></i> {{restaurant.tel}}</li>
+          <li><i class="fas fa-map-marker-alt"></i> {{restaurant.address}}</li>
         </ul>
       </div>
 
     </section>
 
     <section class="comments">
-      <h3>所有評論：</h3>
+      <div class="comments-count">{{restaurant.Comments.length}} 則評論</div>
+      <form action="/comments" method="POST">
+        <div class="form-group comments-grid">
+          <div class="comments-image" style="background-image: url({{currentUser.image}})"></div>
+          <input class="form-control comments-area" style="width: -webkit-fill-available;" id="text" name="text"
+            placeholder="新增留言..." />
+        </div>
+        <input type="hidden" name="restaurantId" value="{{restaurant.id}}" />
+        <div style="text-align: right;"><button type="submit" class="btn btn-primary">Submit</button></div>
+
+      </form>
+      <br />
+      <br />
       {{#each restaurant.Comments}}
       {{#if ../currentUser.isAdmin}}
       <form action="/comments/{{this.id}}?_method=DELETE" method="POST" style="float: right;">
-        <button type="submit" class="btn btn-danger">Delete</button>
+        <div><button type="submit" class="btn"><i class="far fa-trash-alt" style="color: red"></i></button></div>
+
       </form>
       {{/if}}
-      <blockquote class="blockquote mb-0">
-        <h4><a href="/users/{{this.User.id}}">{{this.User.name}}</a></h4>
-        <p>{{this.text}}</p>
-        <footer class="blockquote-footer">{{moment this.createdAt}}</footer>
-      </blockquote>
-      <hr />
-      {{/each}}
-      <br />
-      <br />
-      <form action="/comments" method="POST">
-        <div class="form-group">
-          <label for="text">留下評論：</label>
-          <textarea class="form-control" id="text" name="text" rows="3"></textarea>
+      <blockquote class="blockquote mb-3 comments-grid">
+        <div class="comments-image" style="background-image: url({{this.User.image}})"></div>
+        <div class="right">
+          <span>
+            <a href="/users/{{this.User.id}}">{{this.User.name}}</a>
+          </span>
+          <span>{{moment this.createdAt}}</span>
+          <p>{{this.text}}</p>
         </div>
-        <input type="hidden" name="restaurantId" value="{{restaurant.id}}" />
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+      </blockquote>
+      {{/each}}
     </section>
   </div>
 
@@ -99,67 +106,3 @@
     </ul>
   </div>
 </div>
-
-{{!-- <div class="row">
-  <div class="col-md-12 mb-3">
-    <h1>{{restaurant.name}}</h1>
-    <a href="/restaurants?categoryId={{restaurant.CategoryId}}" class="category"><i class="fas fa-tag"></i>
-      {{restaurant.Category.name}}<a>
-  </div>
-  <div class="col-md-4">
-    <img class="img-responsive center-block" src="{{restaurant.image}}" style="width: 250px;margin-bottom: 25px;">
-    <div class="well">
-      <ul class="list-unstyled">
-        <li><strong>Opening Hour:</strong> {{restaurant.opening_hours}}</li>
-        <li><strong>Tel:</strong> {{restaurant.tel}}</li>
-        <li><strong>Address:</strong> {{restaurant.address}}</li>
-      </ul>
-    </div>
-  </div>
-  <div class="col-md-8">
-    <p>{{restaurant.description}}</p>
-    <div class="detail-page-option">
-      <a href="/dashboard/{{restaurant.id}}" class="btn btn-primary">DashBoard</a>
-      {{#if isFavorited }}
-      <form action="/favorite/{{restaurant.id}}?_method=DELETE" method="POST"><button type="submit" class="remove"><i
-            class="fas fa-heart"></i>Remove</button></form>
-      {{else}}
-      <form action="/favorite/{{restaurant.id}}" method="POST"><button type="submit" class="save"><i class="far fa-heart"></i>Save</button></form>
-      {{/if}}
-      {{#if isLiked }}
-      <form action="/like/{{restaurant.id}}?_method=DELETE" method="POST"><button type="submit" class="unlike"><i class="far fa-thumbs-down"></i>Unlike</button></form>
-      {{else}}
-      <form action="/like/{{restaurant.id}}" method="POST"><button type="submit" class="like"><i class="far fa-thumbs-up"></i>Like</button></form>
-      {{/if}}
-    </div>
-  </div>
-  <hr>
-</div>
-<br />
-<br />
-<h3>所有評論：</h3>
-{{#each restaurant.Comments}}
-{{#if ../currentUser.isAdmin}}
-<form action="/comments/{{this.id}}?_method=DELETE" method="POST" style="float: right;">
-  <button type="submit" class="btn btn-danger">Delete</button>
-</form>
-{{/if}}
-<blockquote class="blockquote mb-0">
-  <h4><a href="/users/{{this.User.id}}">{{this.User.name}}</a></h4>
-  <p>{{this.text}}</p>
-  <footer class="blockquote-footer">{{moment this.createdAt}}</footer>
-</blockquote>
-<hr />
-{{/each}}
-<br />
-<br />
-<form action="/comments" method="POST">
-  <div class="form-group">
-    <label for="text">留下評論：</label>
-    <textarea class="form-control" id="text" name="text" rows="3"></textarea>
-  </div>
-  <input type="hidden" name="restaurantId" value="{{restaurant.id}}" />
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-<br />
-<a href="javascript:history.back()">回上一頁</a> --}}

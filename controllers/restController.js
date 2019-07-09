@@ -31,6 +31,7 @@ const restController = {
       let totalPage = Array.from({ length: pages }).map(
         (item, index) => index + 1
       )
+
       let prev = page - 1 < 1 ? 1 : page - 1
       let next = page + 1 > pages ? pages : page + 1
 
@@ -58,6 +59,7 @@ const restController = {
 
   getRestaurant: (req, res) => {
     return Restaurant.findByPk(req.params.id, {
+      order: [['createdAt', 'DESC']],
       include: [
         Category,
         { model: User, as: 'FavoritedUsers' },
@@ -72,10 +74,27 @@ const restController = {
       const isLiked = restaurant.LikedUsers.some(
         d => d.id === Number(req.user.id)
       )
+      console.log(restaurant.Comments)
       return res.render('restaurant', {
         restaurant: restaurant,
         isFavorited: isFavorited,
         isLiked: isLiked
+      })
+    })
+  },
+
+  getDashboard: (req, res) => {
+    return Restaurant.findByPk(req.params.id, {
+      include: [Category, { model: User, as: 'FavoritedUsers' }]
+    }).then(restaurant => {
+      Comment.findAndCountAll({
+        where: { RestaurantId: req.params.id }
+      }).then(results => {
+        res.render('dashboard', {
+          restaurant: restaurant,
+          commentCount: results.count,
+          saveCount: restaurant.FavoritedUsers.length
+        })
       })
     })
   },
@@ -94,22 +113,6 @@ const restController = {
         return res.render('feeds', {
           restaurants: restaurants,
           comments: comments
-        })
-      })
-    })
-  },
-
-  getDashboard: (req, res) => {
-    return Restaurant.findByPk(req.params.id, {
-      include: [Category, { model: User, as: 'FavoritedUsers' }]
-    }).then(restaurant => {
-      Comment.findAndCountAll({
-        where: { RestaurantId: req.params.id }
-      }).then(results => {
-        res.render('dashboard', {
-          restaurant: restaurant,
-          commentCount: results.count,
-          saveCount: restaurant.FavoritedUsers.length
         })
       })
     })

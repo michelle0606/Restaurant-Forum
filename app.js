@@ -40,4 +40,4 @@ app.listen(port, () => {
   console.log(`Example app listening on port 3000!`)
 })
 
-require('./routes')(app, passport)
+require('./routes')(app)
