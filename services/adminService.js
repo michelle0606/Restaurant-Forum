@@ -1,0 +1,18 @@
+const db = require('../models')
+const Restaurant = db.Restaurant
+const Category = db.Category
+const User = db.User
+
+const fs = require('fs')
+const imgur = require('imgur-node-api')
+const IMGUR_CLIENT_ID = '62019706c9916ea'
+
+const adminController = {
+  getRestaurants: (req, res, cb) => {
+    return Restaurant.findAll({ include: [Category] }).then(restaurants => {
+      cb({ restaurants: restaurants })
+    })
+  }
+}
+
+module.exports = adminController

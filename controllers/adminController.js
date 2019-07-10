@@ -2,15 +2,16 @@ const db = require('../models')
 const Restaurant = db.Restaurant
 const Category = db.Category
 const User = db.User
-
 const fs = require('fs')
 const imgur = require('imgur-node-api')
 const IMGUR_CLIENT_ID = '62019706c9916ea'
 
+const adminService = require('../services/adminService.js')
+
 const adminController = {
   getRestaurants: (req, res) => {
-    return Restaurant.findAll({ include: [Category] }).then(restaurants => {
-      return res.render('admin/restaurants', { restaurants: restaurants })
+    adminService.getRestaurants(req, res, data => {
+      return res.render('admin/restaurants', data)
     })
   },
   createRestaurant: (req, res) => {
