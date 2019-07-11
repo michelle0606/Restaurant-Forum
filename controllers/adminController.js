@@ -14,6 +14,7 @@ const adminController = {
       return res.render('admin/restaurants', data)
     })
   },
+
   createRestaurant: (req, res) => {
     Category.findAll().then(categories => {
       return res.render('admin/create', {
@@ -21,6 +22,7 @@ const adminController = {
       })
     })
   },
+
   postRestaurant: (req, res) => {
     if (!req.body.name) {
       req.flash('error_messages', "name didn't exist")
@@ -60,15 +62,13 @@ const adminController = {
       })
     }
   },
+
   getRestaurant: (req, res) => {
-    return Restaurant.findByPk(req.params.id, { include: [Category] }).then(
-      restaurant => {
-        return res.render('admin/restaurant', {
-          restaurant: restaurant
-        })
-      }
-    )
+    adminService.getRestaurant(req, res, data => {
+      return res.render('admin/restaurant', data)
+    })
   },
+
   editRestaurant: (req, res) => {
     return Restaurant.findByPk(req.params.id).then(restaurant => {
       Category.findAll().then(categories => {
@@ -79,6 +79,7 @@ const adminController = {
       })
     })
   },
+
   putRestaurant: (req, res) => {
     if (!req.body.name) {
       req.flash('error_messages', "name didn't exist")
@@ -132,6 +133,7 @@ const adminController = {
       })
     }
   },
+
   deleteRestaurant: (req, res) => {
     return Restaurant.findByPk(req.params.id).then(restaurant => {
       restaurant.destroy().then(() => {
@@ -139,11 +141,13 @@ const adminController = {
       })
     })
   },
+
   editUser: (req, res) => {
     return User.findAll().then(user => {
       res.render('admin/editUser', { user: user })
     })
   },
+
   putUser: (req, res) => {
     return User.findByPk(req.params.id)
       .then(user => {
