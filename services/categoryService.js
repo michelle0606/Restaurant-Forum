@@ -46,6 +46,14 @@ const categoryController = {
         })
       })
     }
+  },
+
+  deleteCategory: (req, res, cb) => {
+    return Category.findByPk(req.params.id).then(category => {
+      category.destroy().then(() => {
+        cb({ status: 'success', message: '' })
+      })
+    })
   }
 }
 
