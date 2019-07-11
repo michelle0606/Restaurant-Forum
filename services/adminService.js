@@ -19,6 +19,13 @@ const adminController = {
         cb({ restaurant: restaurant })
       }
     )
+  },
+  deleteRestaurant: (req, res, cb) => {
+    return Restaurant.findByPk(req.params.id).then(restaurant => {
+      restaurant.destroy().then(() => {
+        cb({ status: 'success', message: '' })
+      })
+    })
   }
 }
 
