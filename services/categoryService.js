@@ -16,6 +16,21 @@ const categoryController = {
         return cb({ categories: categories })
       }
     })
+  },
+
+  postCategory: (req, res, cb) => {
+    if (!req.body.name) {
+      return cb({ status: 'error', message: "name didn't exist" })
+    } else {
+      return Category.create({
+        name: req.body.name
+      }).then(() => {
+        cb({
+          status: 'success',
+          message: 'restaurant was successfully to update'
+        })
+      })
+    }
   }
 }
 
