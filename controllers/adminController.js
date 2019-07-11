@@ -4,7 +4,7 @@ const Category = db.Category
 const User = db.User
 const fs = require('fs')
 const imgur = require('imgur-node-api')
-const IMGUR_CLIENT_ID = '62019706c9916ea'
+const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 
 const adminService = require('../services/adminService.js')
 

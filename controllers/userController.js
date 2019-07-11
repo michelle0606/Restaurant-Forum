@@ -8,7 +8,7 @@ const Like = db.Like
 const Followship = db.Followship
 
 const imgur = require('imgur-node-api')
-const IMGUR_CLIENT_ID = '62019706c9916ea'
+const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 
 const userController = {
   signUpPage: (req, res) => {
@@ -80,7 +80,6 @@ const userController = {
         ...c.dataValues,
         text: c.dataValues.text.substring(0, 20)
       }))
-
       let restaurants = comments.map(c => c.Restaurant.id)
       restaurants = Array.from(new Set(restaurants))
 
