@@ -120,6 +120,26 @@ const adminController = {
         cb({ status: 'success', message: '' })
       })
     })
+  },
+
+  editUser: (req, res, cb) => {
+    return User.findAll().then(user => {
+      cb({ user: user })
+    })
+  },
+
+  putUser: (req, res, cb) => {
+    return User.findByPk(req.params.id)
+      .then(user => {
+        const roleToUpdate = !user.isAdmin
+        return user.update({ isAdmin: roleToUpdate })
+      })
+      .then(() => {
+        cb({
+          status: 'success',
+          message: 'user was successfully to update'
+        })
+      })
   }
 }
 

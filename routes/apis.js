@@ -82,6 +82,20 @@ router.delete(
   categoryController.deleteCategory
 )
 
+// /admin/users
+router.get(
+  '/admin/users',
+  authenticated,
+  authenticatedAdmin,
+  adminController.editUser
+)
+router.put(
+  '/admin/users/:id',
+  authenticated,
+  authenticatedAdmin,
+  adminController.putUser
+)
+
 // user action
 router.post('/signin', userController.signIn)
 router.post('/signup', userController.signUp)

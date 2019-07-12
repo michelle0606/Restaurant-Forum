@@ -69,21 +69,18 @@ const adminController = {
   },
 
   editUser: (req, res) => {
-    return User.findAll().then(user => {
-      res.render('admin/editUser', { user: user })
+    adminService.editUser(req, res, data => {
+      return res.render('admin/editUser', data)
     })
   },
 
   putUser: (req, res) => {
-    return User.findByPk(req.params.id)
-      .then(user => {
-        const roleToUpdate = !user.isAdmin
-        return user.update({ isAdmin: roleToUpdate })
-      })
-      .then(() => {
-        req.flash('success_messages', 'user was successfully to update')
+    adminService.putUser(req, res, data => {
+      if (data['status'] === 'success') {
+        req.flash('success_messages', data['message'])
         res.redirect('/admin/users')
-      })
+      }
+    })
   }
 }
 
