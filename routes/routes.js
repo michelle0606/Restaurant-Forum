@@ -137,8 +137,6 @@ router.put(
   userController.putUser
 )
 
-router.get('/dashboard/:id', authenticated, restController.getDashboard)
-
 router.post(
   '/favorite/:restaurantId',
   authenticated,

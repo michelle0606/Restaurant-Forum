@@ -54,6 +54,7 @@
 }
 
 .main-info > :nth-child(1) > img {
+  max-width: 382px;
   width: -webkit-fill-available;
 }
 
